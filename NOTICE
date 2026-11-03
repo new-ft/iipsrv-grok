@@ -1,0 +1,35 @@
+IIPImage Server — OpenJPEG + Grok Public Build
+================================================
+
+This repository is a modified fork of IIPImage Server (iipsrv), combined at
+build time with the Grok JPEG2000 codec. The combination, as a whole, is
+distributed to you under the terms of the GNU Affero General Public License
+version 3 (AGPLv3), because it links/includes AGPLv3-licensed code (Grok).
+
+Component licensing summary
+----------------------------
+
+| Component                        | License                 | Modified here? |
+|-----------------------------------|--------------------------|-----------------|
+| iipsrv (this fork)                 | GNU GPL v3               | Yes — see CHANGES_FROM_UPSTREAM.md |
+| Grok JPEG2000 codec (submodule)    | GNU AGPL v3              | No — used unmodified at the pinned commit |
+| OpenJPEG                           | 2-clause BSD             | No |
+| libwebp, libsharpyuv               | BSD-style (Google)       | No |
+| libpng                             | libpng license           | No |
+| libtiff                            | libtiff license (BSD-like)| No |
+| libjpeg-turbo                      | IJG / BSD-style          | No |
+| zlib                                | zlib license             | No |
+| libavif, libyuv                    | BSD-2-Clause             | No |
+| fcgi (FastCGI library)              | OSI-approved FastCGI license | No |
+| libmemcached / libhashkit           | BSD                       | No |
+
+Because the combined work (iipsrv + Grok) includes AGPLv3-licensed code, the
+complete corresponding source for the combined work — including this
+repository's modifications to iipsrv, the exact Grok version used (pinned
+submodule commit), and the build scripts needed to reproduce the binary —
+is made available here to satisfy the AGPLv3 "network use" source-disclosure
+requirement. See SOURCE_OFFER.md for details.
+
+This NOTICE file does not modify or supersede the actual license texts.
+See LICENSE (GPLv3, iipsrv) and LICENSE-AGPL (AGPLv3, Grok) and
+THIRD_PARTY_LICENSES.md (all other dependencies) for the authoritative terms.

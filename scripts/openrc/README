@@ -1,0 +1,25 @@
+Init and configuration scripts for OpenRC-based init systems
+============================================================
+
+Install the iipsrv executable to the /usr/sbin/ directory:
+
+    % ./configure --prefix=/usr
+    % make
+    % sudo make install
+
+
+Copy and rename the OpenRC init and conf files to the following locations:
+
+    iipsrv.initd -> /etc/init.d/iipsrv
+    iipsrv.confd -> /etc/conf.d/iipsrv
+
+
+Start, stop or restart iipsrv using OpenRC:
+
+    % /etc/init.d/iipsrv start
+    % /etc/init.d/iipsrv stop
+    % /etc/init.d/iipsrv restart
+
+Empty iipsrv caches without restarting:
+
+    % /etc/init.d/iipsrv reload

@@ -1,0 +1,38 @@
+*.[oa]
+*.fcgi
+*~
+Makefile
+doc/html
+
+# Files made by autogen.sh.
+Makefile.in
+libtool
+/aclocal.m4
+/autom4te.cache/
+/compile
+/config.*
+/configure
+/depcomp
+/install-sh
+/ltmain.sh
+/m4/lt*
+/m4/libtool.m4
+/missing
+/src/.deps/
+fcgi/libfcgi/.deps/
+
+# Windows / Visual Studio build output
+windows/Visual Studio */Debug/
+windows/Visual Studio */Release*/
+windows/Visual Studio */x64/
+.vs/
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
+*.log
+
+# Grok submodule build output (built locally per docs/BUILD_WINDOWS.md)
+third_party/grok/build/
