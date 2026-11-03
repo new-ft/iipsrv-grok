@@ -67,3 +67,5 @@ Section 13.
 | Branch | `public/openjpeg-grok-multithreaded` |
 | Upstream iipsrv commit | `cf302322874158e1f358f8e67d4f94c2acf7e031` (https://github.com/ruven/iipsrv) |
 | Grok version | `v20.4.9` (commit `7c6418e7a0eadf59e8e7178d43fea96fbd782c3b`), unmodified, submodule `third_party/grok` |
+
+Maintainer contact: [@cbgrasshopper](https://github.com/cbgrasshopper)
