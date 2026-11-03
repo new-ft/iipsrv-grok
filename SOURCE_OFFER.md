@@ -62,10 +62,10 @@ Section 13.
 
 | Item | Value |
 |---|---|
-| Release tag | `iipsrv-1.3-grok-20.4.9` |
+| Release tag | `iipsrv-1.3-grok-20.4.19` |
 | Source repository | https://github.com/new-ft/iipsrv-grok |
 | Branch | `public/openjpeg-grok-multithreaded` |
 | Upstream iipsrv commit | `cf302322874158e1f358f8e67d4f94c2acf7e031` (https://github.com/ruven/iipsrv) |
-| Grok version | `v20.4.9` (commit `7c6418e7a0eadf59e8e7178d43fea96fbd782c3b`), unmodified, submodule `third_party/grok` |
+| Grok version | `v20.4.19` (commit `31ae6fa25be3747370b47a65d311e355f2adb33f`), unmodified, submodule `third_party/grok` |
 
 Maintainer contact: [@cbgrasshopper](https://github.com/cbgrasshopper)

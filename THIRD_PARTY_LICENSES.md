@@ -42,4 +42,4 @@ Per the AGPLv3 and GPLv3 terms, the license text of each dependency remains
 in full force; this table is a convenience summary only and does not replace
 the authoritative texts shipped with each package.
 
-Grok pinned version: `v20.4.9` (commit `7c6418e7a0eadf59e8e7178d43fea96fbd782c3b`), AGPLv3.
+Grok pinned version: `v20.4.19` (commit `31ae6fa25be3747370b47a65d311e355f2adb33f`), AGPLv3.
