@@ -62,7 +62,7 @@ Section 13.
 
 | Item | Value |
 |---|---|
-| Release tag | `iipsrv-1.3-grok-1.0` |
+| Release tag | `iipsrv-1.3-grok-20.4.9` |
 | Source repository | https://github.com/new-ft/iipsrv-grok |
 | Branch | `public/openjpeg-grok-multithreaded` |
 | Upstream iipsrv commit | `cf302322874158e1f358f8e67d4f94c2acf7e031` (https://github.com/ruven/iipsrv) |
