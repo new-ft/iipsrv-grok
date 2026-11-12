@@ -110,17 +110,13 @@ void TIL::run( Session* session, const std::string& a ){
   if( (endx >= startx) && (endy >= starty) ){
     string source_offer = session->response->getSourceOffer();
     if( !source_offer.empty() ) source_offer += "\r\n";
-    char str[1024];
-    snprintf( str, 1024,
-	      "Server: iipsrv/%s\r\n"
-	      "Content-Type: application/vnd.netfpx\r\n"
-	      "Last-Modified: %s\r\n"
-	      "%s\r\n"
-	      "%s"
-	      "\r\n",
-	      VERSION, (*session->image)->getTimestamp().c_str(), session->response->getCacheControl().c_str(), source_offer.c_str() );
+    string header = string( "Server: iipsrv/" ) + VERSION + "\r\n"
+      "Content-Type: application/vnd.netfpx\r\n"
+      "Last-Modified: " + (*session->image)->getTimestamp() + "\r\n" +
+      session->response->getCacheControl() + "\r\n" +
+      source_offer + "\r\n";
 
-    session->out->putS( (const char*)str );
+    session->out->putS( header.c_str() );
   }
 
 

@@ -110,7 +110,9 @@ string IIPResponse::formatResponse(){
       eof + eof + error;
   }
   else{
-    response = server + eof + powered + eof + cacheControl + eof + modified + eof + mimeType + eof;
+    response = server + eof + powered + eof + cacheControl + eof;
+    if( !modified.empty() ) response += modified + eof;
+    response += mimeType + eof;
     if( !cors.empty() ) response += cors + eof;
     if( !sourceOffer.empty() ) response += sourceOffer + eof;
     if( !protocol.empty() ) response += protocol + eof;
@@ -177,6 +179,7 @@ string IIPResponse::getHeaderResponse( bool addCORS ){
 	 << cacheControl << eof
 	 << "Content-Length: 0" << eof;
   if( addCORS && !cors.empty() ) header << cors << eof;
+  if( !sourceOffer.empty() ) header << sourceOffer << eof;
   header << eof;
 
   return header.str();
