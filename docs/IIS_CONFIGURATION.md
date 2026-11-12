@@ -93,6 +93,7 @@ environment variable change — iipsrv reads these only at process startup.
 | `MEMCACHED_TIMEOUT` | Cache entry TTL (seconds) | `86400` |
 | `DEEPZOOM_FORMAT` | DeepZoom `.dzi` advertised tile format | `webp` (default when `HAVE_WEBP`), `jpg`, `png`, `avif` |
 | `WEBP_QUALITY` | WebP encode quality (0-100) | `50` |
+| `SOURCE_CODE_URL` | Source-offer URL sent in `Link`/`X-Source-Code` headers (empty disables) | repo release tag URL |
 | `JPEG_QUALITY` | JPEG encode quality (0-100) | `75` |
 | `PNG_QUALITY` | PNG compression level (0-9) | `6` |
 | `AVIF_QUALITY` | AVIF encode quality (0-100) | `50` |

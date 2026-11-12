@@ -347,6 +347,9 @@ int main( int argc, char *argv[] )
   string cache_control = Environment::getCacheControl();
 
 
+  // Get the source code offer URL (AGPLv3 section 13)
+  string source_url = Environment::getSourceCodeURL();
+
   // Get URI mapping if we are not using query strings
   string uri_map_string = Environment::getURIMap();
   map<string,string> uri_map;
@@ -445,6 +448,7 @@ int main( int argc, char *argv[] )
 #endif
     logfile << "Setting maximum CVT size to " << max_CVT << endl;
     logfile << "Setting HTTP Cache-Control header to '" << cache_control << "'" << endl;
+    logfile << "Setting source code offer URL to '" << source_url << "'" << endl;
     logfile << "Setting 3D file sequence name pattern to '" << FIF::filename_pattern << "'" << endl;
     logfile << "Setting default IIIF Image API version to " << IIIF::version << endl;
     logfile << "Setting IIIF image processing API extension support to " << (IIIF::extensions ? "true" : "false") << endl;
@@ -712,6 +716,7 @@ int main( int argc, char *argv[] )
     IIPResponse response;
     response.setCORS( cors );
     response.setCacheControl( cache_control );
+    response.setSourceOffer( source_url );
 
 
     try{
@@ -1072,6 +1077,7 @@ int main( int argc, char *argv[] )
       string status = "Status: 404 Not Found\r\nServer: iipsrv/" + version +
 	"\r\nContent-Type: text/plain; charset=utf-8" +
 	(response.getCORS().length() ? "\r\n" + response.getCORS() : "") +
+	(response.getSourceOffer().length() ? "\r\n" + response.getSourceOffer() : "") +
 	"\r\n\r\n" + error.what();
       writer.putS( status.c_str() );
       writer.flush();
@@ -1086,6 +1092,7 @@ int main( int argc, char *argv[] )
       string status = "Status: 400 Bad Request\r\nServer: iipsrv/" + version +
 	"\r\nContent-Type: text/plain; charset=utf-8" +
 	(response.getCORS().length() ? "\r\n" + response.getCORS() : "") +
+	(response.getSourceOffer().length() ? "\r\n" + response.getSourceOffer() : "") +
 	"\r\n\r\n" + error.what();
       writer.putS( status.c_str() );
       writer.flush();
@@ -1101,6 +1108,7 @@ int main( int argc, char *argv[] )
       string status = "Status: 500 Internal Server Error\r\nServer: iipsrv/" + version +
 	"\r\nContent-Type: text/plain; charset=utf-8" +
 	(response.getCORS().length() ? "\r\n" + response.getCORS() : "") +
+	(response.getSourceOffer().length() ? "\r\n" + response.getSourceOffer() : "") +
 	"\r\n\r\n" + message;
       writer.putS( status.c_str() );
       writer.flush();

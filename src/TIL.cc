@@ -108,14 +108,17 @@ void TIL::run( Session* session, const std::string& a ){
   /* Only send our MIME type once
    */
   if( (endx >= startx) && (endy >= starty) ){
+    string source_offer = session->response->getSourceOffer();
+    if( !source_offer.empty() ) source_offer += "\r\n";
     char str[1024];
     snprintf( str, 1024,
 	      "Server: iipsrv/%s\r\n"
 	      "Content-Type: application/vnd.netfpx\r\n"
 	      "Last-Modified: %s\r\n"
 	      "%s\r\n"
+	      "%s"
 	      "\r\n",
-	      VERSION, (*session->image)->getTimestamp().c_str(), session->response->getCacheControl().c_str() );
+	      VERSION, (*session->image)->getTimestamp().c_str(), session->response->getCacheControl().c_str(), source_offer.c_str() );
 
     session->out->putS( (const char*)str );
   }

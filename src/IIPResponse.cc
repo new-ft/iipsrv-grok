@@ -104,6 +104,7 @@ string IIPResponse::formatResponse(){
   if( error.length() ){
     response = server + eof + "Cache-Control: no-cache" + eof + mimeType + eof;
     if( !cors.empty() ) response += cors + eof;
+    if( !sourceOffer.empty() ) response += sourceOffer + eof;
     response += status + eof +
       "Content-Disposition: inline;filename=\"IIPisAMadGameClosedToOurUnderstanding.netfpx\"" +
       eof + eof + error;
@@ -111,6 +112,7 @@ string IIPResponse::formatResponse(){
   else{
     response = server + eof + powered + eof + cacheControl + eof + modified + eof + mimeType + eof;
     if( !cors.empty() ) response += cors + eof;
+    if( !sourceOffer.empty() ) response += sourceOffer + eof;
     if( !protocol.empty() ) response += protocol + eof;
     response += eof + responseBody;
   }
@@ -123,6 +125,7 @@ string IIPResponse::formatResponse(){
 string IIPResponse::getAdvert(){
 
   string advert = server + eof + "Content-Type: text/html" + eof;
+  if( !sourceOffer.empty() ) advert += sourceOffer + eof;
   advert += "Content-Disposition: inline;filename=\"iipsrv.html\"" + eof;
   advert += status + eof + eof;
   advert += "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"/><title>IIPImage Server</title><meta name=\"DC.creator\" content=\"Ruven Pillay &lt;ruven@users.sourceforge.net&gt;\"/><meta name=\"DC.title\" content=\"IIPImage Server\"/><meta name=\"DC.source\" content=\"https://iipimage.sourceforge.io\"/></head><body style=\"font-family:Helvetica,sans-serif; margin:4em\"><center><h1>IIPImage Server</h1><h2>Version "
@@ -150,6 +153,9 @@ string IIPResponse::createHTTPHeader( const string& mimeType, const string& time
 
   // Add CORS header if we have one
   if( !cors.empty() ) header << cors << eof;
+
+  // Add source code offer headers (AGPLv3 section 13)
+  if( !sourceOffer.empty() ) header << sourceOffer << eof;
 
   // Add content disposition if we have one
   if( !contentDisposition.empty() ) header << contentDisposition << eof;
