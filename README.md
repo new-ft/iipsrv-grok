@@ -101,3 +101,7 @@ THIRD_PARTY_LICENSES.md, SOURCE_OFFER.md, CHANGES_FROM_UPSTREAM.md
 This is a fork of [ruven/iipsrv](https://github.com/ruven/iipsrv), based on
 commit `cf302322874158e1f358f8e67d4f94c2acf7e031`. All modifications are
 documented in [`CHANGES_FROM_UPSTREAM.md`](CHANGES_FROM_UPSTREAM.md).
+
+## Maintainer and licence enquiries
+
+Maintainer: [@cbgrasshopper](https://github.com/cbgrasshopper). Licence and source-code enquiries: open an issue at https://github.com/new-ft/iipsrv-grok/issues.

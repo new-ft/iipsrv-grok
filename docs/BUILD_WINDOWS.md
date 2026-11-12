@@ -82,8 +82,12 @@ cd C:\path\to\vcpkg
 
 ## 3. Build Grok
 
+Grok's public sub-dependencies must be fetched first (do not fetch
+`extern/grok-gpu-plugin`):
+
 ```powershell
 cd third_party\grok
+git submodule update --init --depth 1 -- src/include/CLI11 src/lib/core/highway src/include/spdlog src/include/taskflow
 cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release --target grokj2k
 ```
@@ -130,6 +134,20 @@ The resulting binary is at
 `iipsrv.exe`), alongside the vcpkg-deployed dependency DLLs
 (`vcpkg.applocal.log` lists what was copied) and `grokj2k.dll` (copy this
 one manually from the Grok build output if it is not auto-deployed).
+
+## 4a. Quick local test (optional)
+
+Copy `grokj2k.dll` next to `iipsrv.fcgi`, set the environment variables
+(for example `FILESYSTEM_PREFIX`, `MEMCACHED_SERVERS=none`,
+`JP2_DECODER=openjpeg|grok|grokmt`) and run the server standalone:
+
+```powershell
+.\iipsrv.fcgi --bind localhost:9000
+```
+
+Use `localhost:<port>` or `:<port>`; an IP address such as
+`127.0.0.1:9000` is rejected on Windows. Query it with a FastCGI client
+or through IIS/nginx.
 
 ## 5. Deploy
 
