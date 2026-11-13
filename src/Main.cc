@@ -26,6 +26,7 @@
 #include <ctime>
 #include <csignal>
 #include <string>
+#include <functional>
 #include <utility>
 #include <map>
 #include <algorithm>
@@ -347,6 +348,18 @@ int main( int argc, char *argv[] )
   string cache_control = Environment::getCacheControl();
 
 
+  // Get the source code offer URL (AGPLv3 section 13)
+  string source_url = Environment::getSourceCodeURL();
+
+  // Cache keys are bounded and tied to the source offer so stale headers are never replayed
+  const string cache_ns = "so3:" + source_url;
+  const auto memcachedKey = [&cache_ns]( const string& request ){
+    string key_input = cache_ns;
+    key_input.push_back( '\0' );
+    key_input += request;
+    return "so3-" + std::to_string( std::hash<string>()( key_input ) );
+  };
+
   // Get URI mapping if we are not using query strings
   string uri_map_string = Environment::getURIMap();
   map<string,string> uri_map;
@@ -445,6 +458,7 @@ int main( int argc, char *argv[] )
 #endif
     logfile << "Setting maximum CVT size to " << max_CVT << endl;
     logfile << "Setting HTTP Cache-Control header to '" << cache_control << "'" << endl;
+    logfile << "Setting source code offer URL to '" << source_url << "'" << endl;
     logfile << "Setting 3D file sequence name pattern to '" << FIF::filename_pattern << "'" << endl;
     logfile << "Setting default IIIF Image API version to " << IIIF::version << endl;
     logfile << "Setting IIIF image processing API extension support to " << (IIIF::extensions ? "true" : "false") << endl;
@@ -712,6 +726,7 @@ int main( int argc, char *argv[] )
     IIPResponse response;
     response.setCORS( cors );
     response.setCacheControl( cache_control );
+    response.setSourceOffer( source_url );
 
 
     try{
@@ -867,7 +882,7 @@ int main( int argc, char *argv[] )
       // request, which should always be faster to send
       if( !header || session.headers["HTTP_IF_MODIFIED_SINCE"].empty() ){
 	char* memcached_response = NULL;
-	if( (memcached_response = memcached.retrieve( request_string )) ){
+	if( (memcached_response = memcached.retrieve( memcachedKey( request_string ) )) ){
 	  writer.putStr( memcached_response, memcached.length() );
 	  writer.flush();
 	  free( memcached_response );
@@ -963,7 +978,7 @@ int main( int argc, char *argv[] )
       if( response.cachable() && memcached.connected() ){
 	Timer memcached_timer;
 	memcached_timer.start();
-	memcached.store( session.headers["QUERY_STRING"], writer.buffer, writer.sz );
+	memcached.store( memcachedKey( session.headers["QUERY_STRING"] ), writer.buffer, writer.sz );
 	if( loglevel >= 3 ){
 	  logfile << "Memcached :: stored " << writer.sz << " bytes in "
 		  << memcached_timer.getTime() << " microseconds" << endl;
@@ -1072,6 +1087,7 @@ int main( int argc, char *argv[] )
       string status = "Status: 404 Not Found\r\nServer: iipsrv/" + version +
 	"\r\nContent-Type: text/plain; charset=utf-8" +
 	(response.getCORS().length() ? "\r\n" + response.getCORS() : "") +
+	(response.getSourceOffer().length() ? "\r\n" + response.getSourceOffer() : "") +
 	"\r\n\r\n" + error.what();
       writer.putS( status.c_str() );
       writer.flush();
@@ -1086,6 +1102,7 @@ int main( int argc, char *argv[] )
       string status = "Status: 400 Bad Request\r\nServer: iipsrv/" + version +
 	"\r\nContent-Type: text/plain; charset=utf-8" +
 	(response.getCORS().length() ? "\r\n" + response.getCORS() : "") +
+	(response.getSourceOffer().length() ? "\r\n" + response.getSourceOffer() : "") +
 	"\r\n\r\n" + error.what();
       writer.putS( status.c_str() );
       writer.flush();
@@ -1101,6 +1118,7 @@ int main( int argc, char *argv[] )
       string status = "Status: 500 Internal Server Error\r\nServer: iipsrv/" + version +
 	"\r\nContent-Type: text/plain; charset=utf-8" +
 	(response.getCORS().length() ? "\r\n" + response.getCORS() : "") +
+	(response.getSourceOffer().length() ? "\r\n" + response.getSourceOffer() : "") +
 	"\r\n\r\n" + message;
       writer.putS( status.c_str() );
       writer.flush();

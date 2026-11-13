@@ -67,6 +67,7 @@ rebuild needed to change behavior. The most relevant to this build:
 | `GROK_NUM_THREADS` | Thread count for `grokmt` | integer, default `4` |
 | `DEEPZOOM_FORMAT` | Tile format advertised in DeepZoom `.dzi` | e.g. `webp` (build default), `jpg`, `png` |
 | `WEBP_QUALITY` | WebP tile quality | integer, default `50` |
+| `SOURCE_CODE_URL` | URL sent in `Link: rel="source"` and `X-Source-Code` headers (AGPLv3 §13) | default: this repo's release tag; empty disables |
 | `MEMCACHED_SERVERS` | Tile cache servers, or disable | e.g. `127.0.0.1:11211`, or `none` |
 
 See [`docs/IIS_CONFIGURATION.md`](docs/IIS_CONFIGURATION.md) for the

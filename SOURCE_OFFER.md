@@ -58,6 +58,14 @@ source offer, free of charge beyond reasonable distribution cost, from the
 operator of the service deploying this software, as required by AGPLv3
 Section 13.
 
+## In-band offer (HTTP headers)
+
+A running deployment also advertises this source on every HTTP response via
+`Link: <url>; rel="source"` and `X-Source-Code: <url>` headers. The URL
+defaults to the tagged release above and can be overridden with the
+`SOURCE_CODE_URL` environment variable (empty value disables the headers;
+do not disable them on a network-facing AGPL deployment).
+
 ## Release record
 
 | Item | Value |

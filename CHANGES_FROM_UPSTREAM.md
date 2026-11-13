@@ -81,7 +81,19 @@ iipsrv, under GPLv3.
     MSBuild properties (overridable via environment variable) instead of
     hardcoded, developer-machine-specific absolute paths.
 
-## 5. Not modified
+## 5. AGPLv3 §13 source-offer HTTP headers (`SOURCE_CODE_URL`)
+
+- Every HTTP response (success, redirect, landing page, 400/404/500 errors)
+  now carries `Link: <url>; rel="source"; title="Corresponding Source (AGPL)"`
+  and `X-Source-Code: <url>`.
+- Default URL is pinned to the release tag:
+  `https://github.com/new-ft/iipsrv-grok/tree/iipsrv-1.3-grok-20.4.19`.
+  Override with the `SOURCE_CODE_URL` environment variable; an empty value
+  disables the headers.
+- Files: `src/Environment.h`, `src/IIPResponse.h/.cc`, `src/Main.cc`,
+  `src/IIIF.cc`, `src/TIL.cc`.
+
+## 6. Not modified
 
 - Grok itself (`third_party/grok` submodule) is used **unmodified** at the
   pinned commit/tag recorded in `.gitmodules`.

@@ -63,6 +63,7 @@
 #define INTERPOLATION 1  // 1: Bilinear
 #define CORS "";
 #define BASE_URL "";
+#define SOURCE_CODE_URL "https://github.com/new-ft/iipsrv-grok/tree/iipsrv-1.3-grok-20.4.19"
 #define CACHE_CONTROL "max-age=86400";  // 24 hours
 #define ALLOW_UPSCALING true
 #define URI_MAP ""
@@ -374,6 +375,16 @@ class Environment {
     if( envpara ) cors = std::string( envpara );
     else cors = CORS;
     return cors;
+  }
+
+
+  /// URL offering the corresponding source code (AGPLv3 section 13). Set to an empty string to disable
+  static std::string getSourceCodeURL(){
+    const char* envpara = getenv( "SOURCE_CODE_URL" );
+    std::string url;
+    if( envpara ) url = std::string( envpara );
+    else url = SOURCE_CODE_URL;
+    return url;
   }
 
 

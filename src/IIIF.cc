@@ -120,6 +120,7 @@ void IIIF::run( Session* session, const string& src )
                     + "Location: " + id + "/info.json\r\n"
                     + "Server: iipsrv/" + VERSION + "\r\n"
                     + "X-Powered-By: IIPImage\r\n"
+                    + ( session->response->getSourceOffer().empty() ? string() : session->response->getSourceOffer() + "\r\n" )
                     + "\r\n";
     session->out->putStr( header.c_str(), (int) header.size() );
     session->response->setImageSent();

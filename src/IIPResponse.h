@@ -53,6 +53,8 @@ class IIPResponse{
   std::string error;               // Error message
   std::string allow;               // Allow header
   std::string cors;                // CORS (Cross-Origin Resource Sharing) setting
+  std::string sourceOffer;         // Link and X-Source-Code headers offering the corresponding source
+  std::string sourceURL;           // Source code URL
   std::string contentDisposition;  // File name to use for Content Disposition header
   std::string status;              // HTTP status code
   bool _cachable;                  // Indicate whether response should be cached
@@ -143,6 +145,29 @@ class IIPResponse{
 
   /// Get CORS setting
   std::string getCORS(){ return cors; };
+
+
+  /// Set the URL of the corresponding source code, sent as Link and X-Source-Code headers
+  /** @param url source URL: an empty string disables the headers */
+  void setSourceOffer( const std::string& url ){
+    sourceURL = url;
+    // Strip control characters to prevent header injection
+    for( size_t i = sourceURL.size(); i > 0; i-- ){
+      if( (unsigned char) sourceURL[i-1] < 0x20 || sourceURL[i-1] == 0x7f ) sourceURL.erase( i-1, 1 );
+    }
+    if( sourceURL.empty() ) sourceOffer = "";
+    else sourceOffer =
+	   "Link: <" + sourceURL + ">; rel=\"source\"; title=\"Corresponding Source (AGPL)\"" + eof +
+	   "X-Source-Code: " + sourceURL;
+  };
+
+
+  /// Get the source offer headers (no trailing line break), empty if disabled
+  std::string getSourceOffer(){ return sourceOffer; };
+
+
+  /// Get the source code URL
+  std::string getSourceURL(){ return sourceURL; };
 
 
   /// Set Cache-Control value
