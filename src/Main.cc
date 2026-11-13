@@ -351,9 +351,14 @@ int main( int argc, char *argv[] )
   // Get the source code offer URL (AGPLv3 section 13)
   string source_url = Environment::getSourceCodeURL();
 
-  // Cache namespace: versioned and tied to the source offer so stale headers are never replayed
-  char cache_ns[40];
-  snprintf( cache_ns, sizeof(cache_ns), "so2-%zx:", std::hash<std::string>()( source_url ) );
+  // Cache keys are bounded and tied to the source offer so stale headers are never replayed
+  const string cache_ns = "so3:" + source_url;
+  const auto memcachedKey = [&cache_ns]( const string& request ){
+    string key_input = cache_ns;
+    key_input.push_back( '\0' );
+    key_input += request;
+    return "so3-" + std::to_string( std::hash<string>()( key_input ) );
+  };
 
   // Get URI mapping if we are not using query strings
   string uri_map_string = Environment::getURIMap();
@@ -877,7 +882,7 @@ int main( int argc, char *argv[] )
       // request, which should always be faster to send
       if( !header || session.headers["HTTP_IF_MODIFIED_SINCE"].empty() ){
 	char* memcached_response = NULL;
-	if( (memcached_response = memcached.retrieve( cache_ns + request_string )) ){
+	if( (memcached_response = memcached.retrieve( memcachedKey( request_string ) )) ){
 	  writer.putStr( memcached_response, memcached.length() );
 	  writer.flush();
 	  free( memcached_response );
@@ -973,7 +978,7 @@ int main( int argc, char *argv[] )
       if( response.cachable() && memcached.connected() ){
 	Timer memcached_timer;
 	memcached_timer.start();
-	memcached.store( cache_ns + session.headers["QUERY_STRING"], writer.buffer, writer.sz );
+	memcached.store( memcachedKey( session.headers["QUERY_STRING"] ), writer.buffer, writer.sz );
 	if( loglevel >= 3 ){
 	  logfile << "Memcached :: stored " << writer.sz << " bytes in "
 		  << memcached_timer.getTime() << " microseconds" << endl;
