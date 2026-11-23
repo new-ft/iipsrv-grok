@@ -49,9 +49,11 @@ iipsrv, under GPLv3.
   separately and found to produce incorrect pixel data for this per-request
   tile access pattern; it was **not** adopted — see
   `docs/GROK_EVALUATION.md`.)
-- `src/KakaduImage.cc`: added a guard so the file is excluded from
-  compilation entirely in configurations that don't define `HAVE_KAKADU`
-  (it previously included Kakadu SDK headers unconditionally).
+- `src/KakaduImage.cc`: added `#undef ERROR` before the local `logtype`
+  enum, because `Windows.h` defines `ERROR` as a macro that clashes with the
+  enumerator on Windows builds.
+- `src/Task.h`: declared the `FIF::jp2_decoder` static member used for
+  runtime decoder selection.
 
 ## 3. Memcached made optional / configurable
 
