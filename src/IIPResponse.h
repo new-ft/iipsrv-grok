@@ -2,6 +2,7 @@
     IIP Response Handler Class
 
     Copyright (C) 2003-2025 Ruven Pillay.
+    Modifications Copyright (C) 2026 World Archives Holdings LLC
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

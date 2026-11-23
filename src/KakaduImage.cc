@@ -8,6 +8,7 @@
 
 
     Copyright (C) 2009-2025 IIPImage.
+    Modifications Copyright (C) 2026 World Archives Holdings LLC
     Author: Ruven Pillay
 
     This program is free software; you can redistribute it and/or modify

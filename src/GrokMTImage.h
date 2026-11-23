@@ -1,6 +1,7 @@
 /*  IIP Server: Grok JPEG2000 handler (multi-threaded decode variant)
 
     Copyright (C) 2019-2026 Ruven Pillay.
+    Modifications Copyright (C) 2026 World Archives Holdings LLC
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
