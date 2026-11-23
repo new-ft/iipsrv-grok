@@ -4,8 +4,9 @@ This fork is based on upstream iipsrv
 (https://github.com/ruven/iipsrv) commit `cf302322874158e1f358f8e67d4f94c2acf7e031`
 ("Added extra check when accessing FCGI REQUEST_METHOD parameter...").
 
-All modifications below are our own and are licensed, same as the rest of
-iipsrv, under GPLv3.
+All modifications below are our own (Modifications Copyright (C) 2026 World
+Archives Holdings LLC; original notices are retained) and are licensed, same
+as the rest of iipsrv, under GPLv3.
 
 ## 1. WebP / AVIF tile output
 
