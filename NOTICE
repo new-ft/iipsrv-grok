@@ -6,6 +6,16 @@ build time with the Grok JPEG2000 codec. The combination, as a whole, is
 distributed to you under the terms of the GNU Affero General Public License
 version 3 (AGPLv3), because it links/includes AGPLv3-licensed code (Grok).
 
+Copyright notices
+-----------------
+
+Original iipsrv code: Copyright Ruven Pillay and contributors (see the
+headers of each source file; these notices are retained unchanged).
+
+Modifications to iipsrv in this fork: Copyright (C) 2026 World Archives
+Holdings LLC. Modified or newly created source files carry a
+"Modifications Copyright" line below the original notice.
+
 Component licensing summary
 ----------------------------
 
